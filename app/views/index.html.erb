@@ -1,1 +1,25 @@
-Howdy
+<h1>List of all quizzes</h1>
+
+<hr>
+
+<h2>Add a new quiz</h2>
+
+<hr>
+
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Topic</th>
+    <th>Created at</th>
+    <th></th>
+  </tr>
+
+  <% @list_of_quizzes.each do |quiz| %>
+  </tr>
+    <td><%= quiz.id %></td>
+    <td><%= quiz.topic %></td>
+    <td><%= quiz.created_at %></td>
+    <td><a href="/quizzes/<%= quiz.id %>">Show details</a></td>
+  </tr>
+  <% end %>
+</table>
