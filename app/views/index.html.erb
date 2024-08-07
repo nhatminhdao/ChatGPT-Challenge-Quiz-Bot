@@ -4,6 +4,14 @@
 
 <h2>Add a new quiz</h2>
 
+<form action="/insert_quiz" method="post">
+
+  <label for="a">Topic</label>
+  <input id="a" name="query_topic" type="text">
+  <button>Create quiz</button>
+
+</form>
+
 <hr>
 
 <table border="1">
@@ -18,7 +26,7 @@
   </tr>
     <td><%= quiz.id %></td>
     <td><%= quiz.topic %></td>
-    <td><%= quiz.created_at %></td>
+    <td><%= time_ago_in_words(quiz.created_at) %></td>
     <td><a href="/quizzes/<%= quiz.id %>">Show details</a></td>
   </tr>
   <% end %>
