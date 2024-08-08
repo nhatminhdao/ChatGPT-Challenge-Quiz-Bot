@@ -25,13 +25,19 @@ class QuizzesController < ApplicationController
     system_message = Message.new
     system_message.quiz_id = new_quiz.id
     system_message.role = "system"
-    system_message.content = 
-"You are a #{new_quiz.topic}  tutor. Ask the user five questions to assess their #{new_quiz.topic}  proficiency. Start with an easy question. After each answer, increase or decrease the difficulty of the next question based on how well the user answered.
+    system_message.content = "You are a #{new_quiz.topic} tutor. Ask the user five questions to assess their #{new_quiz.topic} proficiency. Start with an easy question. After each answer, increase or decrease the difficulty of the next question based on how well the user answered.
 
     In the end, provide a score between 0 and 10."
     system_message.save
 
     # create the first user message
+
+    user_message = Message.new
+    user_message.quiz_id = new_quiz.id
+    user_message.role = "user"
+    user_message.content = "Can you assess my #{new_quiz.topic} proficiency?"
+    user_message.save
+
 
     # create the first assistant response
 
