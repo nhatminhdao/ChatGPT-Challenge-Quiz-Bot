@@ -38,8 +38,28 @@ class QuizzesController < ApplicationController
     user_message.content = "Can you assess my #{new_quiz.topic} proficiency?"
     user_message.save
 
-
     # create the first assistant response
+    prior_messages = [
+      { role: "system", content: system_message.content},
+      { role: "user", content: user_message.content}
+    ]
+
+    client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
+    
+    api_response = client.chat(
+      parameters: {
+        model: "gpt-4-turbo",
+        messages: prior_messages
+      }
+    )
+
+    # pp api_response
+
+    assistant_message = Message.new
+    assistant_message.quiz_id = new_quiz.id
+    assistant_message.role = "assistant"
+    assistant_message.content = api_response.fetch("choices").first.fetch("message").fetch("content")
+    assistant_message.save
 
     redirect_to("/quizzes/#{new_quiz.id}")
   end
