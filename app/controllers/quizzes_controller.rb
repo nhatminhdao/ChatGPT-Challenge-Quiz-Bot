@@ -7,7 +7,9 @@ class QuizzesController < ApplicationController
   end
 
   def show
-    # @the_id = params.fetch(":path_id")
+    the_id = params.fetch("path_id")
+    matching_records = Quiz.all.where({ :id => the_id })
+    @the_quiz = matching_records.first
 
 
     render({ :template => "show" })
